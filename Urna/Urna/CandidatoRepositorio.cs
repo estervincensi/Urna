@@ -128,7 +128,11 @@ namespace Urna
 
         public bool PodeCadastrar(Candidato c)
         {
-            if (!string.IsNullOrEmpty(c.NomeCompleto) && !string.IsNullOrEmpty(c.NomePopular)&&CandidatoNaoExiste(c))
+            bool TemPrefeitoDessePartido=true;
+            if(c.IDCargo == 1){
+                TemPrefeitoDessePartido = verificaPrefeitosDoPartido(c.IDPartido);
+            }
+            if (!string.IsNullOrEmpty(c.NomeCompleto) && !string.IsNullOrEmpty(c.NomePopular)&&CandidatoNaoExiste(c) && !TemPrefeitoDessePartido)
             {
                 return true;
             }
@@ -137,6 +141,31 @@ namespace Urna
                 return false;
             }
 
+        }
+
+        private bool verificaPrefeitosDoPartido(int partido)
+        {
+            int contador = 0;
+            string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
+            using (IDbConnection connection = new SqlConnection(connectionString))
+            {
+                IDbCommand comando = connection.CreateCommand();
+                comando.CommandText = "SELECT COUNT(1) as contador FROM Candidato WHERE IDPartido = @paramIDPartido AND IDCargo = 1";
+
+                connection.Open();
+                IDataReader reader = comando.ExecuteReader();
+                if(reader.Read()){
+                    contador = Convert.ToInt32(reader["contador"]);
+                }
+                connection.Close();
+            }
+            if(contador!=0){
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         public bool CandidatoNaoExiste(Candidato c)
