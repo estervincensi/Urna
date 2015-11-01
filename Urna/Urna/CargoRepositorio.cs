@@ -93,9 +93,8 @@ namespace Urna
             using (IDbConnection connection = new SqlConnection(connectionString)){
                 IDbCommand comando = connection.CreateCommand();
                 comando.CommandText =
-                    "SELECT count(1) as contador FROM Cargo WHERE Nome = @paramNome or Situacao = @paramSituacao";
+                    "SELECT count(1) as contador FROM Cargo WHERE Nome = @paramNome";
                 comando.AddParameter("paramNome", cargo.Nome);
-                comando.AddParameter("paramSituacao", cargo.Situacao);
                 connection.Open();
                 IDataReader reader = comando.ExecuteReader();
                 if (reader.Read())
