@@ -1,0 +1,2 @@
+C:\Users\Ester\Documents\ProjetoCrescer\crescer-2015-2\src\modulo-04-c-sharp\dia-04\Urna\Urna\bin\Debug\Urna.exe.config
+C:\Users\Ester\Documents\ProjetoCrescer\crescer-2015-2\src\modulo-04-c-sharp\urna\Urna\Urna\bin\Debug\Urna.exe.config
