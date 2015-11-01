@@ -8,5 +8,14 @@ namespace Urna
 {
     class Voto
     {
+        public int IDVoto { get; set; }
+        public int IDCandidato { get; set; }
+
+        public Voto(int idVoto, int idCandidato)
+        {
+            this.IDVoto = idVoto;
+            this.IDCandidato = idCandidato;
+        }
     }
+    
 }
