@@ -189,5 +189,26 @@ namespace Urna
                 return true;
             }
         }
+
+
+        public void ExcluirPartido(int idPartido)
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
+            using(TransactionScope transacao = new TransactionScope())
+            using(IDbConnection connection = new SqlConnection(connectionString))
+            {
+                IDbCommand comando = connection.CreateCommand();
+                comando.CommandText = "DELETE FROM Partido WHERE IDPartido = @paramIDPartido";
+                comando.AddParameter("paramIDPartido",idPartido);
+
+
+                connection.Open();
+
+                comando.ExecuteNonQuery();
+
+                transacao.Complete();
+                connection.Close();
+            }
+        }
     }
 }
