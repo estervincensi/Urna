@@ -25,9 +25,10 @@ namespace Urna
                     comando.AddParameter("paramNomeCompleto", c.NomeCompleto);
                     comando.AddParameter("paramNomePopular", c.NomePopular);
                     comando.AddParameter("paramDataNascimento", c.DataNascimento);
-                    comando.AddParameter("paramRegistoTRE", c.RegistroTRE);
+                    comando.AddParameter("paramRegistroTRE", c.RegistroTRE);
                     comando.AddParameter("paramIDPartido", c.IDPartido);
                     comando.AddParameter("paramFoto", c.Foto);
+                    comando.AddParameter("paramNumero",c.Numero);
                     comando.AddParameter("paramIDCargo", c.IDCargo);
                     comando.AddParameter("paramExibe", c.Exibe);
 
@@ -53,14 +54,15 @@ namespace Urna
                 using (IDbConnection connection = new SqlConnection(connectionString))
                 {
                     IDbCommand comando = connection.CreateCommand();
-                    comando.CommandText = "UPDATE Candidato SET NomeCompleto = @paramNomeCompleto,NomePopular = @paramNomePopular,DataNascimento = @paramDataNascimento,RegistroTRE = @paramRegistroTRE,IDPartido = @paramIDPartido,Foto = @paramFoto, Numero = @paramNumero,IDCargo = @paramIDCargo, ,Exibe = @paramExibe WHERE IDCandidato = @paramIDCandidato,";
+                    comando.CommandText = "UPDATE Candidato SET NomeCompleto = @paramNomeCompleto,NomePopular = @paramNomePopular,DataNascimento = @paramDataNascimento,RegistroTRE = @paramRegistroTRE,IDPartido = @paramIDPartido,Foto = @paramFoto, Numero = @paramNumero,IDCargo = @paramIDCargo, Exibe = @paramExibe WHERE IDCandidato = @paramIDCandidato";
                     comando.AddParameter("paramIDCandidato", c.IDCandidato);
                     comando.AddParameter("paramNomeCompleto", c.NomeCompleto);
                     comando.AddParameter("paramNomePopular", c.NomePopular);
                     comando.AddParameter("paramDataNascimento", c.DataNascimento);
-                    comando.AddParameter("paramRegistoTRE", c.RegistroTRE);
+                    comando.AddParameter("paramRegistroTRE", c.RegistroTRE);
                     comando.AddParameter("paramIDPartido", c.IDPartido);
                     comando.AddParameter("paramFoto", c.Foto);
+                    comando.AddParameter("paramNumero", c.Numero);
                     comando.AddParameter("paramIDCargo", c.IDCargo);
                     comando.AddParameter("paramExibe", c.Exibe);
 
@@ -109,6 +111,7 @@ namespace Urna
             string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
+                candidatoEncontrado = new Candidato();
                 IDbCommand comando = connection.CreateCommand();
                 comando.CommandText = "SELECT * FROM Candidato WHERE IDCandidato = @paramIDCandidato";
                 comando.AddParameter("paramIDCandidato",idCandidato);
@@ -143,11 +146,11 @@ namespace Urna
 
         private bool PodeCadastrar(Candidato c)
         {
-            bool TemPrefeitoDessePartido=true;
+            bool TemPrefeitoDessePartido=false;
             if(c.IDCargo == 1){
                 TemPrefeitoDessePartido = verificaPrefeitosDoPartido(c.IDPartido);
             }
-            if (!string.IsNullOrEmpty(c.NomeCompleto) && !string.IsNullOrEmpty(c.NomePopular)&&CandidatoNaoExiste(c) && !TemPrefeitoDessePartido)
+            if (!string.IsNullOrEmpty(c.NomeCompleto) && !string.IsNullOrEmpty(c.NomePopular)&& CandidatoNaoExiste(c) && !TemPrefeitoDessePartido)
             {
                 return true;
             }
@@ -215,7 +218,7 @@ namespace Urna
                     candidatoEncontrado.Exibe = Convert.ToBoolean(reader["Exibe"]);
                 }
                 connection.Close();
-                if (candidatoEncontrado==null)
+                if (candidatoEncontrado.NomeCompleto==null)
                 {
                     return true;
                 }
