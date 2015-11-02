@@ -18,6 +18,11 @@ namespace Urna
         public int Numero { get; set; }
         public int IDCargo { get; set; }
         public bool Exibe { get; set; }
+        
+        public Candidato()
+        {
+
+        }
 
         public Candidato(string nomeCompleto, string nomePopular, DateTime dataNascimento,
             string registroTRE, int idPartido, string foto, int numero, int idCargo, bool exibe)

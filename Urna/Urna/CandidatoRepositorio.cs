@@ -190,6 +190,7 @@ namespace Urna
             string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
+                candidatoEncontrado = new Candidato();
                 IDbCommand comando = connection.CreateCommand();
                 comando.CommandText = "SELECT IDCandidato,NomeCompleto,NomePopular,DataNascimento,RegistroTRE,IDPartido,Foto,Numero,IDCargo,Exibe FROM Candidato WHERE NomePopular=@paramNomePopular or RegistroTRE = @paramRegistroTRE or Numero = @paramNumero";
 

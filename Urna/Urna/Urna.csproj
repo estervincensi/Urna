@@ -49,6 +49,8 @@
     <Compile Include="CargoRepositorio.cs" />
     <Compile Include="Eleitor.cs" />
     <Compile Include="EleitorRepositorio.cs" />
+    <Compile Include="Estatistica.cs" />
+    <Compile Include="EstatisticaRepositorio.cs" />
     <Compile Include="Grade.cs" />
     <Compile Include="GradeRepositorio.cs" />
     <Compile Include="IDbCommandExtensions.cs" />
