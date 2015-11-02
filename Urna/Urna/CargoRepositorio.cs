@@ -115,6 +115,8 @@ namespace Urna
             }
         }
 
+
+        //fazer validacao de campo nulo ou em branco
         public bool PodeCadastrar(Cargo cargo)
         {
             int contador = 0;
