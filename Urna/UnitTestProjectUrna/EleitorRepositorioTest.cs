@@ -12,14 +12,14 @@ namespace UnitTestProjectUrna
 {
   
     [TestClass]
-    public class VotoRepositorioTest
+    public class EleitorRepositorioTest
     {
 
         [TestMethod]
         public void PessoaNaoVotouAinda()
         {
-            VotoRepositorio votoRp = new VotoRepositorio();
-            bool jaVotou = votoRp.VerificarSeJaVotou("00000000325");
+            EleitorRepositorio votoRp = new EleitorRepositorio();
+            bool jaVotou = votoRp.VerificarSeJaVotou("00000000324");
 
             Assert.IsFalse(jaVotou);
         }
@@ -28,8 +28,8 @@ namespace UnitTestProjectUrna
         [TestMethod]
         public void PessoaVota()
         {
-            VotoRepositorio votoRp = new VotoRepositorio();
-            bool ConseguilVotar = votoRp.Votar("00000000326", 1);
+            EleitorRepositorio votoRp = new EleitorRepositorio();
+            bool ConseguilVotar = votoRp.Votar("00000000325", "0001");
 
             Assert.IsTrue(ConseguilVotar);
         }
@@ -38,8 +38,8 @@ namespace UnitTestProjectUrna
         [TestMethod]
         public void PessoaTentaVotarMasNaoConseguePorqueJaVotou()
         {
-            VotoRepositorio votoRp = new VotoRepositorio();
-            bool ConseguilVotar = votoRp.Votar("00000000326",1);
+            EleitorRepositorio votoRp = new EleitorRepositorio();
+            bool ConseguilVotar = votoRp.Votar("00000000326", "0001");
 
             Assert.IsFalse(ConseguilVotar);
         }
