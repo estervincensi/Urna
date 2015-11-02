@@ -6,3 +6,6 @@ C:\Users\marvi\Documents\Urna\Urna\Urna\bin\Debug\Urna.pdb
 C:\Users\marvi\Documents\Urna\Urna\Urna\obj\Debug\Urna.csprojResolveAssemblyReference.cache
 C:\Users\marvi\Documents\Urna\Urna\Urna\obj\Debug\Urna.exe
 C:\Users\marvi\Documents\Urna\Urna\Urna\obj\Debug\Urna.pdb
+C:\Users\Emmanoel\Documents\Urna\Urna\Urna\bin\Debug\Urna.exe.config
+C:\Users\Emmanoel\Documents\Urna\Urna\Urna\obj\Debug\Urna.exe
+C:\Users\Emmanoel\Documents\Urna\Urna\Urna\obj\Debug\Urna.pdb

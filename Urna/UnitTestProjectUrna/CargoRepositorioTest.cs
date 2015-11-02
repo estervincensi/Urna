@@ -20,6 +20,7 @@ namespace UnitTestProjectUrna
             Assert.AreEqual(true, cadastro);
         }
 
+        [TestMethod]
         public void DeletarCargo()
         {
             Cargo cargo = new Cargo(100, "Presidente", 'I');
