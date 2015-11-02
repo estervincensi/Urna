@@ -10,12 +10,12 @@ using System.Transactions;
 
 namespace Urna
 {
-    class CargoRepositorio
+    public class CargoRepositorio
     {
-        public void AdicionarCargo(Cargo cargo)
+        public bool AdicionarCargo(Cargo cargo, bool iniciouEleicao)
         {
             bool podeCadastrar = PodeCadastrar(cargo);
-            if (podeCadastrar)
+            if (podeCadastrar && !iniciouEleicao)
             {
                 string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
                 using (TransactionScope transacao = new TransactionScope())
@@ -31,57 +31,87 @@ namespace Urna
                     transacao.Complete();
                     connection.Close();
                 }
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
-        public void DeletarCargo(int id)
+        public bool DeletarCargo(int id, bool iniciouEleicao)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
-            using (TransactionScope transacao = new TransactionScope()) 
-            using (IDbConnection connection = new SqlConnection(connectionString))
+            if (!iniciouEleicao)
             {
-                IDbCommand comando = connection.CreateCommand();
-                comando.CommandText =
-                    "DELETE FROM Cargo WHERE IDCargo = @paramIDCargo";
-                comando.AddParameter("paramIDCargo", id);
-                connection.Open();
-                comando.ExecuteNonQuery();
-                transacao.Complete();
-                connection.Close();
+                string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
+                using (TransactionScope transacao = new TransactionScope())
+                using (IDbConnection connection = new SqlConnection(connectionString))
+                {
+                    IDbCommand comando = connection.CreateCommand();
+                    comando.CommandText =
+                        "DELETE FROM Cargo WHERE IDCargo = @paramIDCargo";
+                    comando.AddParameter("paramIDCargo", id);
+                    connection.Open();
+                    comando.ExecuteNonQuery();
+                    transacao.Complete();
+                    connection.Close();
+                }
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
-        public void AtivarCargo(int id)
+        public bool AtivarCargo(int id, bool iniciouEleicao)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
-            using (TransactionScope transacao = new TransactionScope())
-            using(IDbConnection connection = new SqlConnection(connectionString))
+            if (!iniciouEleicao)
             {
-                IDbCommand comando = connection.CreateCommand();
-                comando.CommandText =
-                    "UPDATE Cargo SET Situacao = A WHERE IDCargo = @paramIDCargo";
-                comando.AddParameter("paramIDCargo", id);
-                connection.Open();
-                comando.ExecuteNonQuery();
-                transacao.Complete();
-                connection.Close();
+                string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
+                using (TransactionScope transacao = new TransactionScope())
+                using (IDbConnection connection = new SqlConnection(connectionString))
+                {
+                    IDbCommand comando = connection.CreateCommand();
+                    comando.CommandText =
+                        "UPDATE Cargo SET Situacao = 'A' WHERE IDCargo = @paramIDCargo";
+                    comando.AddParameter("paramIDCargo", id);
+                    connection.Open();
+                    comando.ExecuteNonQuery();
+                    transacao.Complete();
+                    connection.Close();
+                }
+                return true;
             }
+            else
+            {
+                return false;
+            }
+            
         }
 
-        public void InativarCargo(int id)
+        public bool InativarCargo(int id, bool iniciarEleicao)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
-            using (TransactionScope transacao = new TransactionScope())
-            using (IDbConnection connection = new SqlConnection(connectionString))
+            if (!iniciarEleicao)
             {
-                IDbCommand comando = connection.CreateCommand();
-                comando.CommandText =
-                    "UPDATE Cargo SET Situacao = I WHERE IDCargo = @paramIDCargo";
-                comando.AddParameter("paramIDCargo", id);
-                connection.Open();
-                comando.ExecuteNonQuery();
-                transacao.Complete();
-                connection.Close();
+                string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
+                using (TransactionScope transacao = new TransactionScope())
+                using (IDbConnection connection = new SqlConnection(connectionString))
+                {
+                    IDbCommand comando = connection.CreateCommand();
+                    comando.CommandText =
+                        "UPDATE Cargo SET Situacao = 'I' WHERE IDCargo = @paramIDCargo";
+                    comando.AddParameter("paramIDCargo", id);
+                    connection.Open();
+                    comando.ExecuteNonQuery();
+                    transacao.Complete();
+                    connection.Close();
+                }
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
