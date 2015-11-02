@@ -12,17 +12,16 @@ namespace Urna
 {
     class CandidatoRepositorio
     {
-        public void Cadastrar(Candidato c)
+        public bool Cadastrar(Candidato c, bool iniciouVotacao)
         {
-            if (PodeCadastrar(c))
+            if (PodeCadastrar(c) && !iniciouVotacao)
             {
                 string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
                 using (TransactionScope transacao = new TransactionScope())
                 using (IDbConnection connection = new SqlConnection(connectionString))
                 {
                     IDbCommand comando = connection.CreateCommand();
-                    comando.CommandText = "INSERT INTO Candidato(IDCandidato,NomeCompleto,NomePopular,DataNascimento,RegistroTRE,IDPartido,Foto,Numero,IDCargo,Exibe) VALUES (@paramIDCandidato,@paramNomeCompleto,@paramNomePopular,@paramDataNascimento,@paramRegistroTRE,@paramIDPartido,@paramFoto,@paramNumero,@paramIDCargo,@paramExibe)";
-                    comando.AddParameter("paramIDCandidato", c.IDCandidato);
+                    comando.CommandText = "INSERT INTO Candidato(NomeCompleto,NomePopular,DataNascimento,RegistroTRE,IDPartido,Foto,Numero,IDCargo,Exibe) VALUES (@paramNomeCompleto,@paramNomePopular,@paramDataNascimento,@paramRegistroTRE,@paramIDPartido,@paramFoto,@paramNumero,@paramIDCargo,@paramExibe)";
                     comando.AddParameter("paramNomeCompleto", c.NomeCompleto);
                     comando.AddParameter("paramNomePopular", c.NomePopular);
                     comando.AddParameter("paramDataNascimento", c.DataNascimento);
@@ -37,12 +36,17 @@ namespace Urna
                     transacao.Complete();
                     connection.Close();
                 }
+                return true;
+            }
+            else
+            {
+                return false;
             }
 
         }
-        public void Editar(Candidato c)
+        public bool Editar(Candidato c, bool iniciouVotacao)
         {
-            if (PodeCadastrar(c))
+            if (PodeCadastrar(c) && !iniciouVotacao)
             {
                 string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
                 using (TransactionScope transacao = new TransactionScope())
@@ -65,13 +69,19 @@ namespace Urna
                     transacao.Complete();
                     connection.Close();
                 }
+                return true;
+            }
+            else
+            {
+                return false;
             }
 
         }
 
-        public void ExcluirPorID(int IDCandidato)
+        public bool ExcluirPorID(int IDCandidato, bool iniciouVotacao)
         {
-            if(PodeExcluir(IDCandidato)){
+            if(PodeExcluir(IDCandidato) && !iniciouVotacao)
+            {
                 string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
                 using (TransactionScope transacao = new TransactionScope())
                 using (IDbConnection connection = new SqlConnection(connectionString))
@@ -85,10 +95,15 @@ namespace Urna
                     transacao.Complete();
                     connection.Close();
                 }
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
 
-        public bool PodeExcluir(int idCandidato)
+        private bool PodeExcluir(int idCandidato)
         {
             Candidato candidatoEncontrado = null;
             string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
@@ -126,7 +141,7 @@ namespace Urna
             
         }
 
-        public bool PodeCadastrar(Candidato c)
+        private bool PodeCadastrar(Candidato c)
         {
             bool TemPrefeitoDessePartido=true;
             if(c.IDCargo == 1){
@@ -168,7 +183,7 @@ namespace Urna
             }
         }
 
-        public bool CandidatoNaoExiste(Candidato c)
+        private bool CandidatoNaoExiste(Candidato c)
         {
             Candidato candidatoEncontrado = null;
             string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
