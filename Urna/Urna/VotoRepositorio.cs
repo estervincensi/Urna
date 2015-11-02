@@ -143,6 +143,21 @@ namespace Urna
             }
         }
 
+        public void Estatisticas()
+        {
+            string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
+            using (IDbConnection connection = new SqlConnection(connectionString))
+            {
+                IDbCommand comando = connection.CreateCommand();
+                comando.CommandText = "select v.IDCandidato, c.NomeCompleto, c.NomePopular, COUNT(1) as votos from Voto v inner join Candidato c on c.IDCandidato = v.IDCandidato group by v.IDCandidato, c.NomeCompleto, c.NomePopular";
+
+                connection.Open();
+                IDataReader reader = comando.ExecuteReader();
+                while (reader.Read()){
+                    //adiciona na lista
+                }
+            }
+        }
 
     }
 

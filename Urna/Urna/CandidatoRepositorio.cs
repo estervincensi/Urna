@@ -10,7 +10,7 @@ using System.Transactions;
 
 namespace Urna
 {
-    class CandidatoRepositorio
+    public class CandidatoRepositorio
     {
         public bool Cadastrar(Candidato c, bool iniciouVotacao)
         {
@@ -166,6 +166,7 @@ namespace Urna
             {
                 IDbCommand comando = connection.CreateCommand();
                 comando.CommandText = "SELECT COUNT(1) as contador FROM Candidato WHERE IDPartido = @paramIDPartido AND IDCargo = 1";
+                comando.AddParameter("paramIDPartido",partido);
 
                 connection.Open();
                 IDataReader reader = comando.ExecuteReader();
