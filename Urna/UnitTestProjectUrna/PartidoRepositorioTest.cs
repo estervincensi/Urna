@@ -9,7 +9,7 @@ using System.Transactions;
 namespace UnitTestProjectUrna
 {
     [TestClass]
-    public class UnitTestPartidoRepositorio
+    public class PartidoRepositorioTest
     {
         [TestMethod]
         public void PartidoNaoAtendeAosRequisitosPorTerNomeNull()
@@ -87,7 +87,6 @@ namespace UnitTestProjectUrna
         [TestMethod]
         public void PartidoJaExisteNoBanco()
         {
-            ConfigurationManager.AppSettings["App.config"].Clone();
 
             Partido partido = new Partido(1, "Tribunal Regional Eleitoral", "TRE", "Ética em primeiro lugar");
             PartidoRepositorio reposi = new PartidoRepositorio();
@@ -106,6 +105,28 @@ namespace UnitTestProjectUrna
             bool jaExiste = reposi.JaExisteNoBanco(partido);
 
             Assert.IsFalse(jaExiste);
+
+        }
+
+
+        [TestMethod]
+        public void IdDoPartidoExisteNoBanco()
+        {
+            PartidoRepositorio reposi = new PartidoRepositorio();
+            bool existe = reposi.IdExisteNoBanco(1);
+
+            Assert.IsTrue(existe);
+
+        }
+
+
+        [TestMethod]
+        public void IdDoPartidoNaoExisteNoBanco()
+        {
+            PartidoRepositorio reposi = new PartidoRepositorio();
+            bool existe = reposi.IdExisteNoBanco(5515451);
+
+            Assert.IsFalse(existe);
 
         }
 
