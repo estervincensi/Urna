@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Urna
 {
-    class Candidato
+    public class Candidato
     {
         public int IDCandidato { get; set; }
         public string NomeCompleto { get; set; }
@@ -19,10 +19,9 @@ namespace Urna
         public int IDCargo { get; set; }
         public bool Exibe { get; set; }
 
-        public Candidato(int idCandidato, string nomeCompleto, string nomePopular, DateTime dataNascimento,
+        public Candidato(string nomeCompleto, string nomePopular, DateTime dataNascimento,
             string registroTRE, int idPartido, string foto, int numero, int idCargo, bool exibe)
         {
-            this.IDCandidato = idCandidato;
             this.NomeCompleto = nomeCompleto;
             this.NomePopular = nomePopular;
             this.DataNascimento = dataNascimento;
@@ -33,5 +32,6 @@ namespace Urna
             this.IDCargo = idCargo;
             this.Exibe = exibe;
         }
+
     }
 }
