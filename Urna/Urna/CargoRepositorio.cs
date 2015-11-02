@@ -15,23 +15,28 @@ namespace Urna
         public bool AdicionarCargo(Cargo cargo, bool iniciouEleicao)
         {
             bool podeCadastrar = PodeCadastrar(cargo);
+            bool verificarNome = VerificarNomeNuloOuVazio(cargo);
             if (podeCadastrar && !iniciouEleicao)
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
-                using (TransactionScope transacao = new TransactionScope())
-                using (IDbConnection connection = new SqlConnection(connectionString))
+                if (verificarNome)
                 {
-                    IDbCommand comando = connection.CreateCommand();
-                    comando.CommandText =
-                        "INSERT INTO Cargo (Nome, Situacao) values(@paramNome, @paramSituacao)";
-                    comando.AddParameter("@paramNome", cargo.Nome);
-                    comando.AddParameter("@paramSituacao", cargo.Situacao);
-                    connection.Open();
-                    comando.ExecuteNonQuery();
-                    transacao.Complete();
-                    connection.Close();
+                    string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
+                    using (TransactionScope transacao = new TransactionScope())
+                    using (IDbConnection connection = new SqlConnection(connectionString))
+                    {
+                        IDbCommand comando = connection.CreateCommand();
+                        comando.CommandText =
+                            "INSERT INTO Cargo (Nome, Situacao) values(@paramNome, @paramSituacao)";
+                        comando.AddParameter("@paramNome", cargo.Nome);
+                        comando.AddParameter("@paramSituacao", cargo.Situacao);
+                        connection.Open();
+                        comando.ExecuteNonQuery();
+                        transacao.Complete();
+                        connection.Close();
+                    }
                 }
                 return true;
+                
             }
             else
             {
@@ -136,6 +141,18 @@ namespace Urna
                 connection.Close();
             }
             if(contador == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public bool VerificarNomeNuloOuVazio(Cargo cargo)
+        {
+            if(!string.IsNullOrEmpty(cargo.Nome) && !string.IsNullOrEmpty(cargo.Nome))
             {
                 return true;
             }
