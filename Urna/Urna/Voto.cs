@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Urna
 {
-    class Voto
+    public class Voto
     {
         public int IDVoto { get; set; }
         public int IDCandidato { get; set; }

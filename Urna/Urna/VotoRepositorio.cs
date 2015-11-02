@@ -10,7 +10,7 @@ using System.Transactions;
 
 namespace Urna
 {
-    class VotoRepositorio
+    public class VotoRepositorio
     {
 
         public bool Votar(string cpf, int idCandidato)
@@ -144,5 +144,6 @@ namespace Urna
         }
 
     }
+
 
 }

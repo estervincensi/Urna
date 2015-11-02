@@ -130,5 +130,51 @@ namespace UnitTestProjectUrna
 
         }
 
+        [TestMethod]
+        public void CadastrandoUmpartidoNoBanco()
+        {
+            Partido partido = new Partido(5, "partido do software", "PDS", "Café em primeiro lugar");
+            PartidoRepositorio reposi = new PartidoRepositorio();
+            bool iniciouEleicao = false;
+            reposi.CadastrarNovoPartido(partido, iniciouEleicao);
+
+            bool iDExistenoBanco = reposi.IdExisteNoBanco(5);
+
+            Assert.IsTrue(iDExistenoBanco);
+
+        }
+
+
+        [TestMethod]
+        public void EditandoUmPartido()
+        {
+            Partido partido = new Partido(5, "Associação brasileira de software", "ABDS", "Café em primeiro lugar e salgado em Segundo");
+            PartidoRepositorio reposi = new PartidoRepositorio();
+            bool iniciouEleicao = false;
+            reposi.EditarPartido(partido, iniciouEleicao);
+
+                                        //este metodo verifica se o nome ou a sigla estão cadastradas no banco
+            bool partidoExisteNoBanco = reposi.JaExisteNoBanco(partido);
+
+            Assert.IsTrue(partidoExisteNoBanco);
+
+        }
+
+
+
+        [TestMethod]
+        public void DeletaUmPartidoDoBanco()
+        {
+            Partido partido = new Partido(5, "Associação brasileira de software", "ABDS", "Café em primeiro lugar e salgado em Segundo");
+            PartidoRepositorio reposi = new PartidoRepositorio();
+            bool iniciouEleicao = false;
+            reposi.ExcluirPartido(5, iniciouEleicao);
+
+            bool iDExistenoBanco = reposi.IdExisteNoBanco(5);
+
+            Assert.IsFalse(iDExistenoBanco);
+
+        }
+
     }
 }
