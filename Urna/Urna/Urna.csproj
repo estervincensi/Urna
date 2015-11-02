@@ -48,7 +48,7 @@
     <Compile Include="Cargo.cs" />
     <Compile Include="CargoRepositorio.cs" />
     <Compile Include="Eleitor.cs" />
-    <Compile Include="EleitorRepositorio.cs" />
+    <Compile Include="VotoRepositorio.cs" />
     <Compile Include="Estatistica.cs" />
     <Compile Include="EstatisticaRepositorio.cs" />
     <Compile Include="Grade.cs" />
@@ -59,7 +59,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Voto.cs" />
-    <Compile Include="VotoRepositorio.cs" />
+    <Compile Include="EleitorRepositorio.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

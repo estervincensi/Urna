@@ -57,9 +57,10 @@
   </Choose>
   <ItemGroup>
     <Compile Include="CandidatoRepositorio.Teste.cs" />
+    <Compile Include="CargoRepositorioTest.cs" />
     <Compile Include="PartidoRepositorioTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="VotoRepositorioTest.cs" />
+    <Compile Include="EleitorRepositorioTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Urna\Urna.csproj">
