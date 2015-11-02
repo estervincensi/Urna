@@ -13,41 +13,52 @@ namespace Urna
     public class PartidoRepositorio
     {
 
-        public bool CadastrarNovoPartido(Partido partido)
+        public bool CadastrarNovoPartido(Partido partido, bool iniciouEleicao)
         {
-            bool existeBoBanco = JaExisteNoBanco(partido);
-            bool atendeAosRequisitos = AtendeAosRequisitos(partido);
 
-            if (!existeBoBanco && atendeAosRequisitos)
+            if (!iniciouEleicao)
             {
+                bool existeBoBanco = JaExisteNoBanco(partido);
+                bool atendeAosRequisitos = AtendeAosRequisitos(partido);
 
-                string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
-
-                using (TransactionScope transacao = new TransactionScope())
-                using (IDbConnection connection = new SqlConnection(connectionString))
+                if (!existeBoBanco && atendeAosRequisitos)
                 {
-                    IDbCommand comando = connection.CreateCommand();
-                    comando.CommandText = "INSERT INTO Partido (Nome, Slogan,Sigla) values (@paramNome, @paramSlogan,@paramSigla)";
 
-                    comando.AddParameter("paramNome", partido.Nome);
-                    comando.AddParameter("paramSlogan", partido.Slogan);
-                    comando.AddParameter("paramSigla", partido.Sigla);
+                    string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
 
-                    connection.Open();
+                    using (TransactionScope transacao = new TransactionScope())
+                    using (IDbConnection connection = new SqlConnection(connectionString))
+                    {
+                        IDbCommand comando = connection.CreateCommand();
+                        comando.CommandText = "INSERT INTO Partido (Nome, Slogan,Sigla) values (@paramNome, @paramSlogan,@paramSigla)";
 
-                    comando.ExecuteNonQuery();
+                        comando.AddParameter("paramNome", partido.Nome);
+                        comando.AddParameter("paramSlogan", partido.Slogan);
+                        comando.AddParameter("paramSigla", partido.Sigla);
+
+                        connection.Open();
+
+                        comando.ExecuteNonQuery();
 
 
-                    transacao.Complete();
-                    connection.Close();
+                        transacao.Complete();
+                        connection.Close();
+                    }
+
+                    return true;  // se atende aos requisitos ele cadastra e retorna verdadeiro pra dizer que deu certo
+                }
+                else
+                {
+                    return false; // se não pode cadastrar porque ja existe no banco ou não atende aos requisitos ele retorna false pra dizer que não deu certo
                 }
 
-                return true;  // se atende aos requisitos ele cadastra e retorna verdadeiro pra dizer que deu certo
             }
             else
             {
-                return false; // se não pode cadastrar porque ja existe no banco ou não atende aos requisitos ele retorna false pra dizer que não deu certo
+                return false;
             }
+
+            
             
         }
 
@@ -103,41 +114,50 @@ namespace Urna
         }
 
 
-        public bool EditarPartido(Partido partido)
+        public bool EditarPartido(Partido partido, bool iniciouEleicao)
         {
 
-            bool atendeAosRequisitos = AtendeAosRequisitos(partido);
-            int? idPartido = partido.IDPartido;
-            bool existeNoDB = JaExisteNoBanco(partido);       
-
-            if (atendeAosRequisitos && idPartido != null && !existeNoDB)
+            if (!iniciouEleicao)
             {
-                bool idExisteNoBanco = IdExisteNoBanco(partido.IDPartido);
 
-                if (idExisteNoBanco)
+                bool atendeAosRequisitos = AtendeAosRequisitos(partido);
+                int? idPartido = partido.IDPartido;
+                bool existeNoDB = JaExisteNoBanco(partido);
+
+                if (atendeAosRequisitos && idPartido != null && !existeNoDB)
                 {
-                    string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
+                    bool idExisteNoBanco = IdExisteNoBanco(partido.IDPartido);
 
-                    using (TransactionScope transacao = new TransactionScope())
-                    using (IDbConnection connection = new SqlConnection(connectionString))
+                    if (idExisteNoBanco)
                     {
-                        IDbCommand comando = connection.CreateCommand();
-                        comando.CommandText = "UPDATE Partido SET Nome = @paramNome, Sigla = @paramSigla, Slogan = @paramSlogan WHERE IDPartido = @paramIDPartido";
+                        string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
 
-                        comando.AddParameter("paramNome", partido.Nome);
-                        comando.AddParameter("paramSlogan", partido.Slogan);
-                        comando.AddParameter("paramSigla", partido.Sigla);
-                        comando.AddParameter("paramIDPartido", partido.IDPartido);
+                        using (TransactionScope transacao = new TransactionScope())
+                        using (IDbConnection connection = new SqlConnection(connectionString))
+                        {
+                            IDbCommand comando = connection.CreateCommand();
+                            comando.CommandText = "UPDATE Partido SET Nome = @paramNome, Sigla = @paramSigla, Slogan = @paramSlogan WHERE IDPartido = @paramIDPartido";
 
-                        connection.Open();
+                            comando.AddParameter("paramNome", partido.Nome);
+                            comando.AddParameter("paramSlogan", partido.Slogan);
+                            comando.AddParameter("paramSigla", partido.Sigla);
+                            comando.AddParameter("paramIDPartido", partido.IDPartido);
 
-                        comando.ExecuteNonQuery();
+                            connection.Open();
 
-                        transacao.Complete();
-                        connection.Close();
+                            comando.ExecuteNonQuery();
+
+                            transacao.Complete();
+                            connection.Close();
+                        }
+
+                        return true;  // se atende aos requisitos e o id existe na tabela é feito o update e retorna verdadeiro pra dizer que deu certo
+
                     }
-
-                    return true;  // se atende aos requisitos e o id existe na tabela é feito o update e retorna verdadeiro pra dizer que deu certo
+                    else
+                    {
+                        return false; // se não atende aos requisitos ele retorna false pra dizer que não deu certo
+                    }
 
                 }
                 else
@@ -148,12 +168,12 @@ namespace Urna
             }
             else
             {
-                return false; // se não atende aos requisitos ele retorna false pra dizer que não deu certo
+                return false;
             }
-
-
-            
+      
         }
+
+
 
         public bool IdExisteNoBanco(int idPartido)
         {
@@ -191,24 +211,35 @@ namespace Urna
         }
 
 
-        public void ExcluirPartido(int idPartido)
+        public bool ExcluirPartido(int idPartido, bool iniciouEleicao)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
-            using(TransactionScope transacao = new TransactionScope())
-            using(IDbConnection connection = new SqlConnection(connectionString))
+            if (!iniciouEleicao)
             {
-                IDbCommand comando = connection.CreateCommand();
-                comando.CommandText = "DELETE FROM Partido WHERE IDPartido = @paramIDPartido";
-                comando.AddParameter("paramIDPartido",idPartido);
+                string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
+                using (TransactionScope transacao = new TransactionScope())
+                using (IDbConnection connection = new SqlConnection(connectionString))
+                {
+                    IDbCommand comando = connection.CreateCommand();
+                    comando.CommandText = "DELETE FROM Partido WHERE IDPartido = @paramIDPartido";
+                    comando.AddParameter("paramIDPartido", idPartido);
 
 
-                connection.Open();
+                    connection.Open();
 
-                comando.ExecuteNonQuery();
+                    comando.ExecuteNonQuery();
 
-                transacao.Complete();
-                connection.Close();
+                    transacao.Complete();
+                    connection.Close();
+                }
+
+                return true;
             }
+            else
+            {
+                return false;
+            }
+
+            
         }
     }
 }

@@ -1,2 +1,8 @@
 C:\Users\Ester\Documents\ProjetoCrescer\crescer-2015-2\src\modulo-04-c-sharp\dia-04\Urna\Urna\bin\Debug\Urna.exe.config
 C:\Users\Ester\Documents\ProjetoCrescer\crescer-2015-2\src\modulo-04-c-sharp\urna\Urna\Urna\bin\Debug\Urna.exe.config
+C:\Users\marvi\Documents\Urna\Urna\Urna\bin\Debug\Urna.exe.config
+C:\Users\marvi\Documents\Urna\Urna\Urna\bin\Debug\Urna.exe
+C:\Users\marvi\Documents\Urna\Urna\Urna\bin\Debug\Urna.pdb
+C:\Users\marvi\Documents\Urna\Urna\Urna\obj\Debug\Urna.csprojResolveAssemblyReference.cache
+C:\Users\marvi\Documents\Urna\Urna\Urna\obj\Debug\Urna.exe
+C:\Users\marvi\Documents\Urna\Urna\Urna\obj\Debug\Urna.pdb

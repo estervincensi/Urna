@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Urna", "Urna\Urna.csproj", "{9540CA49-1933-4914-8062-A01EDC6C7CC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProjectUrna", "UnitTestProjectUrna\UnitTestProjectUrna.csproj", "{1A985675-210D-4993-8BE7-48DE8957854F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{9540CA49-1933-4914-8062-A01EDC6C7CC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9540CA49-1933-4914-8062-A01EDC6C7CC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9540CA49-1933-4914-8062-A01EDC6C7CC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A985675-210D-4993-8BE7-48DE8957854F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A985675-210D-4993-8BE7-48DE8957854F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A985675-210D-4993-8BE7-48DE8957854F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A985675-210D-4993-8BE7-48DE8957854F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
