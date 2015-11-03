@@ -14,7 +14,7 @@ namespace UnitTestProjectUrna
         {
             Candidato c = new Candidato("", "teste", new DateTime(2015, 11, 02), "12345", 18, "abcd", 18103, 1, true);
             CandidatoRepositorio cr = new CandidatoRepositorio();
-            bool cadastrou = cr.Cadastrar(c, false);
+            bool cadastrou = cr.Cadastrar(c);
             Assert.AreEqual(false,cadastrou);
         }
 
@@ -23,7 +23,7 @@ namespace UnitTestProjectUrna
         {
             Candidato c = new Candidato("teste", "", new DateTime(2015, 11, 02), "12345", 18, "abcd", 18103, 1, true);
             CandidatoRepositorio cr = new CandidatoRepositorio();
-            bool cadastrou = cr.Cadastrar(c, false);
+            bool cadastrou = cr.Cadastrar(c);
             Assert.AreEqual(false, cadastrou);
         }
 
@@ -32,7 +32,7 @@ namespace UnitTestProjectUrna
         {
             Candidato c = new Candidato("teste", "Pedro II", new DateTime(2015, 11, 02), "12345", 18, "abcd", 18103, 1, true);
             CandidatoRepositorio cr = new CandidatoRepositorio();
-            bool cadastrou = cr.Cadastrar(c, false);
+            bool cadastrou = cr.Cadastrar(c);
             Assert.AreEqual(false, cadastrou);
         }
 
@@ -41,7 +41,7 @@ namespace UnitTestProjectUrna
         {
             Candidato c = new Candidato("teste", "teste", new DateTime(2015, 11, 02), "0001", 18, "abcd", 18103, 1, true);
             CandidatoRepositorio cr = new CandidatoRepositorio();
-            bool cadastrou = cr.Cadastrar(c, false);
+            bool cadastrou = cr.Cadastrar(c);
             Assert.AreEqual(false, cadastrou);
         }
 
@@ -50,7 +50,7 @@ namespace UnitTestProjectUrna
         {
             Candidato c = new Candidato("teste", "teste", new DateTime(2015, 11, 02), "12345", 18, "abcd", 20102, 1, true);
             CandidatoRepositorio cr = new CandidatoRepositorio();
-            bool cadastrou = cr.Cadastrar(c, false);
+            bool cadastrou = cr.Cadastrar(c);
             Assert.AreEqual(false, cadastrou);
         }
 
@@ -59,7 +59,7 @@ namespace UnitTestProjectUrna
         {
             Candidato c = new Candidato("teste", "teste", new DateTime(2015, 11, 02), "12345", 1, "abcd", 10103, 1, true);
             CandidatoRepositorio cr = new CandidatoRepositorio();
-            bool cadastrou = cr.Cadastrar(c, false);
+            bool cadastrou = cr.Cadastrar(c);
             Assert.AreEqual(false, cadastrou);
         }
 
@@ -68,8 +68,11 @@ namespace UnitTestProjectUrna
         {
             Candidato c = new Candidato("teste", "teste", new DateTime(2015, 11, 02), "12345", 1, "abcd", 18103, 2, true);
             CandidatoRepositorio cr = new CandidatoRepositorio();
-            bool cadastrou = cr.Cadastrar(c, true);
+            bool cadastrou = cr.Cadastrar(c);
+            Eleicao e = new Eleicao();
+            e.IniciarEleicao();
             Assert.AreEqual(false, cadastrou);
+            e.TerminarEleicao();
         }
 
         [TestMethod]
@@ -78,7 +81,7 @@ namespace UnitTestProjectUrna
             Candidato c = new Candidato("teste", "teste", new DateTime(2015, 11, 02), "12345", 1, null, 18103, 2, true);
             c.IDCandidato = 15;
             CandidatoRepositorio cr = new CandidatoRepositorio();
-            bool cadastrou = cr.Cadastrar(c, false);
+            bool cadastrou = cr.Cadastrar(c);
             Assert.AreEqual(true, cadastrou);
         }
 
@@ -88,7 +91,7 @@ namespace UnitTestProjectUrna
             Candidato c = new Candidato("", "teste", new DateTime(2015, 11, 02), "12345", 18, "abcd", 18103, 1, true);
             c.IDCandidato = 15;
             CandidatoRepositorio cr = new CandidatoRepositorio();
-            bool editou = cr.Editar(c, false);
+            bool editou = cr.Editar(c);
             Assert.AreEqual(false, editou);
         }
 
@@ -98,7 +101,7 @@ namespace UnitTestProjectUrna
             Candidato c = new Candidato("teste", "", new DateTime(2015, 11, 02), "12345", 18, "abcd", 18103, 1, true);
             c.IDCandidato = 15;
             CandidatoRepositorio cr = new CandidatoRepositorio();
-            bool editou = cr.Editar(c, false);
+            bool editou = cr.Editar(c);
             Assert.AreEqual(false, editou);
         }
 
@@ -108,7 +111,7 @@ namespace UnitTestProjectUrna
             Candidato c = new Candidato("teste", "Pedro II", new DateTime(2015, 11, 02), "12345", 18, "abcd", 18103, 1, true);
             c.IDCandidato = 15;
             CandidatoRepositorio cr = new CandidatoRepositorio();
-            bool editou = cr.Editar(c, false);
+            bool editou = cr.Editar(c);
             Assert.AreEqual(false, editou);
         }
 
@@ -118,7 +121,7 @@ namespace UnitTestProjectUrna
             Candidato c = new Candidato("teste", "teste", new DateTime(2015, 11, 02), "0001", 18, "abcd", 18103, 1, true);
             c.IDCandidato = 15;
             CandidatoRepositorio cr = new CandidatoRepositorio();
-            bool editou = cr.Editar(c, false);
+            bool editou = cr.Editar(c);
             Assert.AreEqual(false, editou);
         }
 
@@ -128,7 +131,7 @@ namespace UnitTestProjectUrna
             Candidato c = new Candidato("teste", "teste", new DateTime(2015, 11, 02), "12345", 18, "abcd", 20102, 1, true);
             c.IDCandidato = 15;
             CandidatoRepositorio cr = new CandidatoRepositorio();
-            bool editou = cr.Editar(c, false);
+            bool editou = cr.Editar(c);
             Assert.AreEqual(false, editou);
         }
 
@@ -138,19 +141,10 @@ namespace UnitTestProjectUrna
             Candidato c = new Candidato("teste", "teste", new DateTime(2015, 11, 02), "12345", 1, "abcd", 20102, 1, true);
             c.IDCandidato = 15;
             CandidatoRepositorio cr = new CandidatoRepositorio();
-            bool editou = cr.Editar(c, false);
+            bool editou = cr.Editar(c);
             Assert.AreEqual(false, editou);
         }
 
-        [TestMethod]
-        public void EditarCandidatoNaoPodeEditarSeAsEleicoesJaComecaram()
-        {
-            Candidato c = new Candidato("teste2", "teste2", new DateTime(2015, 11, 02), "12345", 1, "abcd", 18103, 2, true);
-            c.IDCandidato = 15;
-            CandidatoRepositorio cr = new CandidatoRepositorio();
-            bool cadastrou = cr.Editar(c, true);
-            Assert.AreEqual(false, cadastrou);
-        }
 
         [TestMethod]
         public void EditarCandidatoEditaCandidato()
@@ -158,14 +152,14 @@ namespace UnitTestProjectUrna
             Candidato c = new Candidato("abcdef", "BCDEF", new DateTime(2015, 11, 02), "1234567", 1, "abcd", 1675843, 2, true);
             c.IDCandidato = 15;
             CandidatoRepositorio cr = new CandidatoRepositorio();
-            bool cadastrou = cr.Editar(c, false);
+            bool cadastrou = cr.Editar(c);
             Assert.AreEqual(true, cadastrou);
         }
         [TestMethod]
         public void ExcluirCandidatoNaoPodeExcluirCandidatoComNomeVotoNulo()
         {
             CandidatoRepositorio cr = new CandidatoRepositorio();
-            bool excluiu = cr.ExcluirPorID(1,false);
+            bool excluiu = cr.ExcluirPorID(1);
             Assert.AreEqual(false,excluiu);
         }
 
@@ -173,23 +167,16 @@ namespace UnitTestProjectUrna
         public void ExcluirCandidatoNaoPodeExcluirCandidatoComNomeVotoemBranco()
         {
             CandidatoRepositorio cr = new CandidatoRepositorio();
-            bool excluiu = cr.ExcluirPorID(2, false);
+            bool excluiu = cr.ExcluirPorID(2);
             Assert.AreEqual(false, excluiu);
         }
 
-        [TestMethod]
-        public void ExcluirCandidatoNaoPodeExcluirSeAsEleicoesJaComecaram()
-        {
-            CandidatoRepositorio cr = new CandidatoRepositorio();
-            bool excluiu = cr.ExcluirPorID(15, true);
-            Assert.AreEqual(false, excluiu);
-        }
 
         [TestMethod]
         public void ExcluirCandidatoExcluiCandidato()
         {
             CandidatoRepositorio cr = new CandidatoRepositorio();
-            bool excluiu = cr.ExcluirPorID(15, false);
+            bool excluiu = cr.ExcluirPorID(15);
             Assert.AreEqual(true, excluiu);
         }
     }

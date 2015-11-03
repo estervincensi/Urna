@@ -12,11 +12,11 @@ namespace Urna
 {
     public class CargoRepositorio
     {
-        public bool AdicionarCargo(Cargo cargo, bool iniciouEleicao)
+        public bool AdicionarCargo(Cargo cargo)
         {
             bool podeCadastrar = PodeCadastrar(cargo);
             bool verificarNome = VerificarNomeNuloOuVazio(cargo);
-            if (podeCadastrar && !iniciouEleicao)
+            if (podeCadastrar && !Eleicao.Iniciou)
             {
                 if (verificarNome)
                 {
@@ -44,9 +44,9 @@ namespace Urna
             }
         }
 
-        public bool DeletarCargo(int id, bool iniciouEleicao)
+        public bool DeletarCargo(int id)
         {
-            if (!iniciouEleicao)
+            if (!Eleicao.Iniciou)
             {
                 string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
                 using (TransactionScope transacao = new TransactionScope())
@@ -69,9 +69,9 @@ namespace Urna
             }
         }
 
-        public bool AtivarCargo(int id, bool iniciouEleicao)
+        public bool AtivarCargo(int id)
         {
-            if (!iniciouEleicao)
+            if (!Eleicao.Iniciou)
             {
                 string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
                 using (TransactionScope transacao = new TransactionScope())
@@ -95,9 +95,9 @@ namespace Urna
             
         }
 
-        public bool InativarCargo(int id, bool iniciarEleicao)
+        public bool InativarCargo(int id)
         {
-            if (!iniciarEleicao)
+            if (!Eleicao.Iniciou)
             {
                 string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
                 using (TransactionScope transacao = new TransactionScope())

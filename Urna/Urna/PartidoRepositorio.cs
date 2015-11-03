@@ -13,10 +13,10 @@ namespace Urna
     public class PartidoRepositorio
     {
 
-        public bool CadastrarNovoPartido(Partido partido, bool iniciouEleicao)
+        public bool CadastrarNovoPartido(Partido partido)
         {
 
-            if (!iniciouEleicao)
+            if (!Eleicao.Iniciou)
             {
                 bool existeBoBanco = JaExisteNoBanco(partido);
                 bool atendeAosRequisitos = AtendeAosRequisitos(partido);
@@ -114,10 +114,10 @@ namespace Urna
         }
 
 
-        public bool EditarPartido(Partido partido, bool iniciouEleicao)
+        public bool EditarPartido(Partido partido)
         {
 
-            if (!iniciouEleicao)
+            if (!Eleicao.Iniciou)
             {
 
                 bool atendeAosRequisitos = AtendeAosRequisitos(partido);
@@ -211,9 +211,9 @@ namespace Urna
         }
 
 
-        public bool ExcluirPartido(int idPartido, bool iniciouEleicao)
+        public bool ExcluirPartido(int idPartido)
         {
-            if (!iniciouEleicao)
+            if (!Eleicao.Iniciou)
             {
                 string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
                 using (TransactionScope transacao = new TransactionScope())

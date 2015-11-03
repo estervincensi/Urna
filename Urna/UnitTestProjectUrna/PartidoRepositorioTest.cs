@@ -135,8 +135,7 @@ namespace UnitTestProjectUrna
         {
             Partido partido = new Partido(5, "partido do software", "PDS", "Café em primeiro lugar");
             PartidoRepositorio reposi = new PartidoRepositorio();
-            bool iniciouEleicao = false;
-            reposi.CadastrarNovoPartido(partido, iniciouEleicao);
+            reposi.CadastrarNovoPartido(partido);
 
             bool iDExistenoBanco = reposi.IdExisteNoBanco(5);
 
@@ -150,8 +149,7 @@ namespace UnitTestProjectUrna
         {
             Partido partido = new Partido(5, "Associação brasileira de software", "ABDS", "Café em primeiro lugar e salgado em Segundo");
             PartidoRepositorio reposi = new PartidoRepositorio();
-            bool iniciouEleicao = false;
-            reposi.EditarPartido(partido, iniciouEleicao);
+            reposi.EditarPartido(partido);
 
                                         //este metodo verifica se o nome ou a sigla estão cadastradas no banco
             bool partidoExisteNoBanco = reposi.JaExisteNoBanco(partido);
@@ -167,8 +165,7 @@ namespace UnitTestProjectUrna
         {
             Partido partido = new Partido(5, "Associação brasileira de software", "ABDS", "Café em primeiro lugar e salgado em Segundo");
             PartidoRepositorio reposi = new PartidoRepositorio();
-            bool iniciouEleicao = false;
-            reposi.ExcluirPartido(5, iniciouEleicao);
+            reposi.ExcluirPartido(5);
 
             bool iDExistenoBanco = reposi.IdExisteNoBanco(5);
 

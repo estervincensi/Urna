@@ -16,7 +16,7 @@ namespace UnitTestProjectUrna
         {
             Cargo cargo = new Cargo(6, "Deputado", 'A');
             CargoRepositorio cargoRep = new CargoRepositorio();
-            bool cadastro = cargoRep.AdicionarCargo(cargo, false);
+            bool cadastro = cargoRep.AdicionarCargo(cargo);
             Assert.AreEqual(true, cadastro);
         }
 
@@ -25,7 +25,7 @@ namespace UnitTestProjectUrna
         {
             Cargo cargo = new Cargo(100, "Presidente", 'I');
             CargoRepositorio cargoRep = new CargoRepositorio();
-            bool delete = cargoRep.DeletarCargo(5, false);
+            bool delete = cargoRep.DeletarCargo(5);
             Assert.AreEqual(true, delete);
         }
 
@@ -34,7 +34,7 @@ namespace UnitTestProjectUrna
         {
             Cargo cargo = new Cargo(7, "Rei do Mundo", 'A');
             CargoRepositorio cargoRep = new CargoRepositorio();
-            bool altera = cargoRep.InativarCargo(6, false);
+            bool altera = cargoRep.InativarCargo(6);
             Assert.AreEqual(true, altera);
         }
 
@@ -43,44 +43,17 @@ namespace UnitTestProjectUrna
         {
             Cargo cargo = new Cargo(8, "Rei da Galaxia", 'A');
             CargoRepositorio cargoRep = new CargoRepositorio();
-            bool altera = cargoRep.AtivarCargo(6, false);
+            bool altera = cargoRep.AtivarCargo(6);
             Assert.AreEqual(true, altera);
         }
 
-        [TestMethod]
-        public void NaoCadastraCargoComEleicaoAberta()
-        {
-            Cargo cargo = new Cargo(6, "Rei do lol", 'A');
-            CargoRepositorio cargoRep = new CargoRepositorio();
-            bool cadastro = cargoRep.AdicionarCargo(cargo, true);
-            Assert.AreEqual(false, cadastro);
-        }
-
-        [TestMethod]
-        public void NaoDeletaCargoComEleicaoAberta()
-        {
-            Cargo cargo = new Cargo(70, "Rei do lol", 'A');
-            CargoRepositorio cargoRep = new CargoRepositorio();
-            bool delete = cargoRep.DeletarCargo(6, true);
-            Assert.AreEqual(false, delete);
-        }
-
-        [TestMethod]
-        public void NaoAlteraCargoParaInativoComEleicaoAberta()
-        {
-            Cargo cargo = new Cargo(42, "Sindico", 'A');
-            CargoRepositorio cargoRep = new CargoRepositorio();
-            bool altera = cargoRep.InativarCargo(1, true);
-            Assert.AreEqual(false, altera);
-
-        }
 
         [TestMethod]
         public void NaoAlteraCargoPraAtivoComEleicaoAberta()
         {
             Cargo cargo = new Cargo(42, "Sindico", 'A');
             CargoRepositorio cargoRep = new CargoRepositorio();
-            bool altera = cargoRep.AtivarCargo(1, true);
+            bool altera = cargoRep.AtivarCargo(1);
             Assert.AreEqual(false, altera);
         }
 
@@ -89,7 +62,7 @@ namespace UnitTestProjectUrna
         {
             Cargo cargo = new Cargo(12, "", 'I');
             CargoRepositorio cargoRep = new CargoRepositorio();
-            bool cadastrar = cargoRep.AdicionarCargo(cargo, false);
+            bool cadastrar = cargoRep.AdicionarCargo(cargo);
             Assert.AreEqual(true, cadastrar);
         }
 
@@ -98,7 +71,7 @@ namespace UnitTestProjectUrna
         {
             Cargo cargo = new Cargo(22, null, 'A');
             CargoRepositorio cargoRep = new CargoRepositorio();
-            bool cadastrar = cargoRep.AdicionarCargo(cargo, false);
+            bool cadastrar = cargoRep.AdicionarCargo(cargo);
             Assert.AreEqual(true, cadastrar);
         }
         

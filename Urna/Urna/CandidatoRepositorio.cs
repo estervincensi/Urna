@@ -12,9 +12,9 @@ namespace Urna
 {
     public class CandidatoRepositorio
     {
-        public bool Cadastrar(Candidato c, bool iniciouVotacao)
+        public bool Cadastrar(Candidato c)
         {
-            if (PodeCadastrar(c) && !iniciouVotacao)
+            if (PodeCadastrar(c) && !Eleicao.Iniciou)
             {
                 string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
                 using (TransactionScope transacao = new TransactionScope())
@@ -45,9 +45,9 @@ namespace Urna
             }
 
         }
-        public bool Editar(Candidato c, bool iniciouVotacao)
+        public bool Editar(Candidato c)
         {
-            if (PodeCadastrar(c) && !iniciouVotacao)
+            if (PodeCadastrar(c) && !Eleicao.Iniciou)
             {
                 string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
                 using (TransactionScope transacao = new TransactionScope())
@@ -80,9 +80,9 @@ namespace Urna
 
         }
 
-        public bool ExcluirPorID(int IDCandidato, bool iniciouVotacao)
+        public bool ExcluirPorID(int IDCandidato)
         {
-            if(PodeExcluir(IDCandidato) && !iniciouVotacao)
+            if(PodeExcluir(IDCandidato) && !Eleicao.Iniciou)
             {
                 string connectionString = ConfigurationManager.ConnectionStrings["URNA"].ConnectionString;
                 using (TransactionScope transacao = new TransactionScope())

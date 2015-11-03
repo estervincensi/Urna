@@ -47,6 +47,7 @@
     <Compile Include="CandidatoRepositorio.cs" />
     <Compile Include="Cargo.cs" />
     <Compile Include="CargoRepositorio.cs" />
+    <Compile Include="Eleicao.cs" />
     <Compile Include="Eleitor.cs" />
     <Compile Include="VotoRepositorio.cs" />
     <Compile Include="Estatistica.cs" />
